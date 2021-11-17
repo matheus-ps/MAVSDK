@@ -4,6 +4,7 @@
 #include "px4_custom_mode.h"
 #include <cmath>
 #include <future>
+#include <iostream>
 
 namespace mavsdk {
 
@@ -127,6 +128,16 @@ Action::Result ActionImpl::land() const
     auto fut = prom.get_future();
 
     land_async([&prom](Action::Result result) { prom.set_value(result); });
+
+    return fut.get();
+}
+
+Action::Result ActionImpl::prec_land() const
+{
+    auto prom = std::promise<Action::Result>();
+    auto fut = prom.get_future();
+
+    prec_land_async([&prom](Action::Result result) { prom.set_value(result); });
 
     return fut.get();
 }
@@ -363,6 +374,24 @@ void ActionImpl::land_async(const Action::ResultCallback& callback) const
 
     command.command = MAV_CMD_NAV_LAND;
     command.params.maybe_param4 = NAN; // Don't change yaw.
+    command.target_component_id = _parent->get_autopilot_id();
+
+    _parent->send_command_async(
+        command, [this, callback](MavlinkCommandSender::Result result, float) {
+            command_result_callback(result, callback);
+        });
+}
+
+void ActionImpl::prec_land_async(const Action::ResultCallback& callback) const
+{
+    MavlinkCommandSender::CommandLong command{*_parent};
+
+    // TODO: See how can we set Opportunistic or Required Precision Landing mode
+    // Implementation -> See https://github.com/PX4/PX4-Autopilot/issues/14171#issuecomment-593648255
+    command.command = MAV_CMD_DO_SET_MODE;
+    command.params.param1 = 1; // MAV_MODE_FLAG -> MAV_MODE_FLAG_SAFETY_ARMED = 128 | MAV_MODE_FLAG_CUSTOM_MODE_ENABLED = 1
+    command.params.param2 = px4::PX4_CUSTOM_MAIN_MODE_AUTO; 
+    command.params.param3 = px4::PX4_CUSTOM_SUB_MODE_AUTO_PRECLAND;
     command.target_component_id = _parent->get_autopilot_id();
 
     _parent->send_command_async(

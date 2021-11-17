@@ -58,6 +58,16 @@ Action::Result Action::land() const
     return _impl->land();
 }
 
+void Action::prec_land_async(const ResultCallback callback)
+{
+    _impl->prec_land_async(callback);
+}
+
+Action::Result Action::prec_land() const
+{
+    return _impl->prec_land();
+}
+
 void Action::reboot_async(const ResultCallback callback)
 {
     _impl->reboot_async(callback);

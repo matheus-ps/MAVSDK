@@ -80,6 +80,7 @@ int main(int argc, char** argv)
     // Instantiate pluginis.
     auto telemetry = Telemetry{system};
     auto action = Action{system};
+    auto mission = Mission{system};
 
     // We want to listen to the altitude of the drone at 1 Hz.
     const auto set_rate_result = telemetry.set_rate_position(1.0);
@@ -89,10 +90,15 @@ int main(int argc, char** argv)
     }
 
     // Set up callback to monitor altitude while the vehicle is in flight
-    telemetry.subscribe_position([](Telemetry::Position position) {
-        std::cout << "Altitude: " << position.relative_altitude_m << " m\n";
-    });
+    //telemetry.subscribe_position([](Telemetry::Position position) {
+    //    std::cout << "Altitude: " << position.relative_altitude_m << " m\n";
+    //});
 
+    // Set up a callback for the flight mode
+    //telemetry.subscribe_flight_mode([](Telemetry::FlightMode flightmode) {
+    //    std::cout << "Flight mode: " << flightmode << "\n";
+    //});
+    
     // Check until vehicle is ready to arm
     while (telemetry.health_all_ok() != true) {
         std::cout << "Vehicle is getting ready to arm\n";
@@ -120,7 +126,7 @@ int main(int argc, char** argv)
     sleep_for(seconds(10));
 
     std::cout << "Landing...\n";
-    const Action::Result land_result = action.land();
+    const Action::Result land_result = action.prec_land(2));
     if (land_result != Action::Result::Success) {
         std::cerr << "Land failed: " << land_result << '\n';
         return 1;

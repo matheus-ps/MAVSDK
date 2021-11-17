@@ -198,6 +198,26 @@ public:
     Result land() const;
 
     /**
+     * @brief Send command to perform precision land at the current position.
+     * 
+     * Implementation -> See https://github.com/PX4/PX4-Autopilot/issues/14171#issuecomment-593648255
+     * 
+     * This function is non-blocking. See 'prec_land' for the blocking counterpart.
+     */
+    void prec_land_async(const ResultCallback callback);
+
+    /**
+     * @brief Send command to perform precision land at the current position.
+     * 
+     * Implementation -> See https://github.com/PX4/PX4-Autopilot/issues/14171#issuecomment-593648255
+     * 
+     * This function is blocking. See 'prec_land_async' for the non-blocking counterpart.
+     *
+     * @return Result of request.
+     */
+    Result prec_land() const;
+
+    /**
      * @brief Send command to reboot the drone components.
      *
      * This will reboot the autopilot, companion computer, camera and gimbal.

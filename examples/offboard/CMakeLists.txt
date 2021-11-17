@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(offboard)
 
+list(APPEND CMAKE_PREFIX_PATH "/media/storage/Documents/px4/MAVSDK/install/lib/cmake")
+
 add_executable(offboard
     offboard.cpp
 )

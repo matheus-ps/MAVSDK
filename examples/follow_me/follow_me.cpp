@@ -152,8 +152,8 @@ int main(int argc, char** argv)
     // example.
     location_provider.request_location_updates([&follow_me](double lat, double lon) {
         FollowMe::TargetLocation target_location{};
-        target_location.latitude_deg = lat;
-        target_location.longitude_deg = lon;
+        target_location.latitude_deg = 47.398170327054473;
+        target_location.longitude_deg = 8.5456490218639658;
         follow_me.set_target_location(target_location);
     });
 

@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(takeoff_and_land)
 
+list(APPEND CMAKE_PREFIX_PATH "/media/storage/Documents/px4/MAVSDK/install/lib/cmake")
+
 add_executable(takeoff_and_land
     takeoff_and_land.cpp
 )
@@ -15,6 +17,7 @@ target_link_libraries(takeoff_and_land
     MAVSDK::mavsdk_telemetry
     MAVSDK::mavsdk_action
     MAVSDK::mavsdk
+    MAVSDK::mavsdk_mission
 )
 
 if(NOT MSVC)

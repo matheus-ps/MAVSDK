@@ -28,6 +28,7 @@ public:
     Action::Result shutdown() const;
     Action::Result takeoff() const;
     Action::Result land() const;
+    Action::Result prec_land() const;
     Action::Result return_to_launch() const;
     Action::Result goto_location(
         const double latitude_deg,
@@ -54,6 +55,7 @@ public:
     void shutdown_async(const Action::ResultCallback& callback) const;
     void takeoff_async(const Action::ResultCallback& callback) const;
     void land_async(const Action::ResultCallback& callback) const;
+    void prec_land_async(const Action::ResultCallback& callback) const;
     void return_to_launch_async(const Action::ResultCallback& callback) const;
     void goto_location_async(
         const double latitude_deg,
