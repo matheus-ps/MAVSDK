@@ -95,9 +95,9 @@ int main(int argc, char** argv)
     //});
 
     // Set up a callback for the flight mode
-    //telemetry.subscribe_flight_mode([](Telemetry::FlightMode flightmode) {
-    //    std::cout << "Flight mode: " << flightmode << "\n";
-    //});
+    telemetry.subscribe_flight_mode([](Telemetry::FlightMode flightmode) {
+        std::cout << "Flight mode: " << flightmode << "\n";
+    });
     
     // Check until vehicle is ready to arm
     while (telemetry.health_all_ok() != true) {
