@@ -11,6 +11,7 @@ logs/
 CMakeLists.txt.user*
 
 .DS_Store
+*.code-workspace
 
 # windows swap files
 *~
