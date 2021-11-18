@@ -384,7 +384,7 @@ void ActionImpl::land_async(const Action::ResultCallback& callback) const
 
 void ActionImpl::prec_land_async(const Action::ResultCallback& callback) const
 {
-    MavlinkCommandSender::CommandLong command{*_parent};
+    MavlinkCommandSender::CommandLong command{};
 
     // TODO: See how can we set Opportunistic or Required Precision Landing mode
     // Implementation -> See https://github.com/PX4/PX4-Autopilot/issues/14171#issuecomment-593648255
