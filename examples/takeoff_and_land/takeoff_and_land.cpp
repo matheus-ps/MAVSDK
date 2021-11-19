@@ -7,6 +7,7 @@
 #include <mavsdk/mavsdk.h>
 #include <mavsdk/plugins/action/action.h>
 #include <mavsdk/plugins/telemetry/telemetry.h>
+#include <mavsdk/plugins/mission/mission.h>
 #include <iostream>
 #include <future>
 #include <memory>
@@ -126,7 +127,7 @@ int main(int argc, char** argv)
     sleep_for(seconds(10));
 
     std::cout << "Landing...\n";
-    const Action::Result land_result = action.prec_land(2));
+    const Action::Result land_result = action.prec_land();
     if (land_result != Action::Result::Success) {
         std::cerr << "Land failed: " << land_result << '\n';
         return 1;

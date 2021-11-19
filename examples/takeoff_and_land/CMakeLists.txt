@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(takeoff_and_land)
 
-list(APPEND CMAKE_PREFIX_PATH "/media/storage/Documents/px4/MAVSDK/install/lib/cmake")
+list(APPEND CMAKE_PREFIX_PATH "/usr/local/lib/cmake")
 
 add_executable(takeoff_and_land
     takeoff_and_land.cpp
